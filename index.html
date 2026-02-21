@@ -40,7 +40,7 @@
 
       width:min(1200px, 96vw);
 
-      padding:18px 14px;
+      padding:16px 12px;
 
       display:flex;
 
@@ -56,15 +56,13 @@
 
       position:relative;
 
-      width:min(1200px, 96vw);
+      width:min(1100px, 96vw);
 
-      aspect-ratio: 1792 / 1024; /* proporció del panell */
+      aspect-ratio: 3 / 2;   /* IMPORTANT: ratio del panell nou */
 
       max-height: 88vh;
 
     }
-
-    /* Imatge del panell */
 
     .board img{
 
@@ -82,7 +80,7 @@
 
     }
 
-    /* capa per col·locar text a sobre */
+    /* Overlay per als dígits */
 
     .overlay{
 
@@ -94,25 +92,27 @@
 
     }
 
-    /* Posició i estil del comptador (sobre els números del panell) */
+    /* DÍGITS alineats dins les finestres */
 
     .digits{
 
       position:absolute;
 
-      left: 8%;
+      /* ✅ AJUSTOS CLAU (ja calibrats per aquest panell) */
 
-      right: 8%;
+      left: 6.8%;
 
-      top: 70%;
+      right: 6.8%;
 
-      height: 20%;
+      top: 67.8%;
+
+      height: 20.5%;
 
       display:grid;
 
       grid-template-columns: 1fr 1fr 1fr 1fr;
 
-      gap: 2.5%;
+      gap: 5.2%;
 
       align-items:center;
 
@@ -122,21 +122,31 @@
 
       font-variant-numeric: tabular-nums;
 
-      font-size: clamp(40px, 7vw, 120px);
+      font-size: clamp(34px, 6.4vw, 92px);
 
-      letter-spacing: .04em;
+      letter-spacing: .02em;
+
+      line-height: 1;
 
       color: #f3b13a; /* groc aeroport */
 
-      text-shadow: 0 10px 24px rgba(0,0,0,.55);
+      text-shadow: 0 10px 22px rgba(0,0,0,.55);
+
+      transform: translateY(2%);
 
     }
 
-    /* A mòbil, reajustem una mica */
-
     @media (max-width: 520px){
 
-      .digits{ top: 72%; }
+      .board{ width: 98vw; }
+
+      .digits{
+
+        top: 68.6%;
+
+        font-size: clamp(28px, 7.5vw, 70px);
+
+      }
 
     }
 </style>
@@ -144,9 +154,7 @@
 <body>
 <div class="wrap">
 <div class="board">
-<!-- ✅ panell aeroport (puja'l al repo com panel.png) -->
 <img src="panel.png" alt="Panell aeroport - Praga" />
-<!-- ✅ números reals a sobre (això és el que s'actualitza) -->
 <div class="overlay">
 <div class="digits">
 <div id="dd">--</div>
@@ -159,7 +167,7 @@
 </div>
 <script>
 
-    // ✅ Data/hora de sortida (hora Barcelona)
+    // ✅ Sortida: 21/05/2026 17:30 (hora Barcelona)
 
     const TARGET = new Date("2026-05-21T17:30:00+02:00");
 
@@ -171,7 +179,7 @@
 
       const now = new Date();
 
-      let diff = TARGET - now;
+      const diff = TARGET - now;
 
       if (isNaN(TARGET.getTime()) || diff <= 0){
 
@@ -189,13 +197,13 @@
 
       const total = Math.floor(diff / 1000);
 
-      const days = Math.floor(total / 86400);
+      const days  = Math.floor(total / 86400);
 
       const hours = Math.floor((total % 86400) / 3600);
 
-      const mins = Math.floor((total % 3600) / 60);
+      const mins  = Math.floor((total % 3600) / 60);
 
-      const secs = total % 60;
+      const secs  = total % 60;
 
       el("dd").textContent = pad2(days);
 
