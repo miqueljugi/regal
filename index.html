@@ -278,40 +278,6 @@
 
     }
 
-    .footer{
-
-      margin-top:14px;
-
-      display:flex;
-
-      justify-content:space-between;
-
-      gap:10px;
-
-      flex-wrap:wrap;
-
-      align-items:center;
-
-      opacity:.9;
-
-      font-size: 13px;
-
-    }
-
-    .pill{
-
-      padding:8px 12px;
-
-      border-radius:999px;
-
-      background: rgba(0,0,0,.35);
-
-      border:1px solid rgba(255,255,255,.12);
-
-      font-variant-numeric: tabular-nums;
-
-    }
-
     @media (max-width:520px){
 
       .grid{ gap:10px; }
@@ -345,10 +311,6 @@
 <div class="unit" id="uM"><span class="num" id="mm">--</span><div class="lab">Minuts</div></div>
 <div class="unit" id="uS"><span class="num" id="ss">--</span><div class="lab">Segons</div></div>
 </section>
-<div class="footer">
-<div class="pill" id="targetPill">📅 2026-05-21 17:30</div>
-<div id="msg">Compte enrere en marxa ✈️</div>
-</div>
 </main>
 <script>
 
@@ -384,7 +346,7 @@
 
     }
 
-    // texts de data/hora “bonics”
+    // textos de data/hora “bonics”
 
     try{
 
@@ -396,8 +358,6 @@
 
     }catch(e){}
 
-    $("targetPill").textContent = "📅 " + TARGET_ISO.replace("T"," ").replace(":00+02:00","");
-
     function tick(){
 
       const now = new Date();
@@ -405,8 +365,6 @@
       let diff = TARGET - now;
 
       if (isNaN(TARGET.getTime())){
-
-        $("msg").textContent = "⚠️ Data objectiu incorrecta.";
 
         return;
 
@@ -421,8 +379,6 @@
         flipIfChanged("uM","mm","00");
 
         flipIfChanged("uS","ss","00");
-
-        $("msg").textContent = "🎉 Ja hi som! Bon viatge!";
 
         return;
 
@@ -445,8 +401,6 @@
       flipIfChanged("uM","mm", pad2(mins));
 
       flipIfChanged("uS","ss", pad2(secs));
-
-      $("msg").textContent = "Falten " + days + " dies";
 
     }
 
