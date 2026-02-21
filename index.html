@@ -38,7 +38,7 @@
 
     .wrap{
 
-      width:min(1100px, 96vw);
+      width:min(1200px, 96vw);
 
       padding:18px 14px;
 
@@ -56,15 +56,15 @@
 
       position:relative;
 
-      width:min(1100px, 96vw);
+      width:min(1200px, 96vw);
 
-      aspect-ratio: 3 / 2; /* ajustat a l’estil del panell */
+      aspect-ratio: 1792 / 1024; /* proporció del panell */
 
-      max-height: 86vh;
+      max-height: 88vh;
 
     }
 
-    /* La imatge del panell */
+    /* Imatge del panell */
 
     .board img{
 
@@ -82,7 +82,7 @@
 
     }
 
-    /* Capa invisible per posicionar números */
+    /* capa per col·locar text a sobre */
 
     .overlay{
 
@@ -94,25 +94,25 @@
 
     }
 
-    /* 🔥 NÚMEROS del comptador (estil aeroport) */
+    /* Posició i estil del comptador (sobre els números del panell) */
 
     .digits{
 
       position:absolute;
 
-      left: 11%;
+      left: 8%;
 
-      right: 11%;
+      right: 8%;
 
-      top: 67%;
+      top: 70%;
 
-      height: 18%;
+      height: 20%;
 
       display:grid;
 
       grid-template-columns: 1fr 1fr 1fr 1fr;
 
-      gap: 2%;
+      gap: 2.5%;
 
       align-items:center;
 
@@ -122,51 +122,21 @@
 
       font-variant-numeric: tabular-nums;
 
-      font-size: clamp(38px, 6.5vw, 92px);
+      font-size: clamp(40px, 7vw, 120px);
 
       letter-spacing: .04em;
 
       color: #f3b13a; /* groc aeroport */
 
-      text-shadow: 0 10px 24px rgba(0,0,0,.5);
+      text-shadow: 0 10px 24px rgba(0,0,0,.55);
 
     }
 
-    /* Textos del DIA i HORA del panell (si vols que siguin dinàmics) */
-
-    .meta{
-
-      position:absolute;
-
-      left: 12%;
-
-      right: 12%;
-
-      top: 48%;
-
-      display:flex;
-
-      justify-content:space-between;
-
-      align-items:center;
-
-      font-weight: 800;
-
-      font-size: clamp(16px, 2.3vw, 30px);
-
-      color:#f3b13a;
-
-      text-shadow: 0 8px 20px rgba(0,0,0,.45);
-
-    }
-
-    /* a mòbil una mica més avall */
+    /* A mòbil, reajustem una mica */
 
     @media (max-width: 520px){
 
-      .digits{ top: 70%; }
-
-      .meta{ top: 51%; }
+      .digits{ top: 72%; }
 
     }
 </style>
@@ -174,15 +144,10 @@
 <body>
 <div class="wrap">
 <div class="board">
-<!-- ✅ Posa aquí el panell aeroport com a imatge -->
+<!-- ✅ panell aeroport (puja'l al repo com panel.png) -->
 <img src="panel.png" alt="Panell aeroport - Praga" />
+<!-- ✅ números reals a sobre (això és el que s'actualitza) -->
 <div class="overlay">
-<!-- (Opcional) si vols que la data/hora del panell es mogui també -->
-<div class="meta">
-<div id="dayTxt">21 MAIG 2026</div>
-<div id="timeTxt">17:30</div>
-</div>
-<!-- ✅ Comptador real (DD : HH : MM : SS) -->
 <div class="digits">
 <div id="dd">--</div>
 <div id="hh">--</div>
@@ -194,21 +159,13 @@
 </div>
 <script>
 
-    // ✅ Data/hora real de sortida (Barcelona)
+    // ✅ Data/hora de sortida (hora Barcelona)
 
-    const TARGET_ISO = "2026-05-21T17:30:00+02:00";
-
-    const TARGET = new Date(TARGET_ISO);
+    const TARGET = new Date("2026-05-21T17:30:00+02:00");
 
     const pad2 = (n) => String(n).padStart(2, "0");
 
     const el = (id) => document.getElementById(id);
-
-    // Textos del panell (opcionales)
-
-    el("dayTxt").textContent = "21 MAIG 2026";
-
-    el("timeTxt").textContent = "17:30";
 
     function tick(){
 
@@ -216,21 +173,7 @@
 
       let diff = TARGET - now;
 
-      if (isNaN(TARGET.getTime())){
-
-        el("dd").textContent = "00";
-
-        el("hh").textContent = "00";
-
-        el("mm").textContent = "00";
-
-        el("ss").textContent = "00";
-
-        return;
-
-      }
-
-      if (diff <= 0){
+      if (isNaN(TARGET.getTime()) || diff <= 0){
 
         el("dd").textContent = "00";
 
