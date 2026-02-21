@@ -5,220 +5,189 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Compte enrere - Praga</title>
 <style>
-
-    *{box-sizing:border-box}
-
-    body{
-
-      margin:0;
-
-      min-height:100vh;
-
-      display:grid;
-
-      place-items:center;
-
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-
-      /* Fons */
-
-      background:
-
-        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
-
-        url("praga.jpg");
-
-      background-size:cover;
-
-      background-position:center;
-
-      background-attachment:fixed;
-
-    }
-
-    .wrap{
-
-      width:min(1200px, 96vw);
-
-      padding:16px 12px;
-
-      display:flex;
-
-      justify-content:center;
-
-      align-items:center;
-
-    }
-
-    /* Contenidor del panell */
-
-    .board{
-
-      position:relative;
-
-      width:min(1100px, 96vw);
-
-      aspect-ratio: 3 / 2;  /* ratio del panell */
-
-      max-height: 88vh;
-
-    }
-
-    .board img{
-
-      width:100%;
-
-      height:100%;
-
-      object-fit:contain;
-
-      display:block;
-
-      filter: drop-shadow(0 18px 50px rgba(0,0,0,.45));
-
-      border-radius: 10px;
-
-    }
-
-    /* Overlay pels dígits */
-
-    .overlay{
-
-      position:absolute;
-
-      inset:0;
-
-      pointer-events:none;
-
-    }
-
-    /* ✅ DÍGITS: ajustats perquè quedin dins les finestres */
-
-    .digits{
-
-      position:absolute;
-
-      left: 6.6%;
-
-      right: 6.6%;
-
-      top: 61.2%;
-
-      height: 16.8%;
-
-      display:grid;
-
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-
-      gap: 5.0%;
-
-      align-items:center;
-
-      justify-items:center;
-
-      font-weight: 900;
-
-      font-variant-numeric: tabular-nums;
-
-      font-size: clamp(26px, 4.8vw, 66px);
-
-      letter-spacing: .02em;
-
-      line-height: 1;
-
-      color: #f3b13a; /* groc aeroport */
-
-      text-shadow: 0 10px 22px rgba(0,0,0,.55);
-
-      transform: translateY(0%);
-
-    }
-
-    @media (max-width: 520px){
-
-      .board{ width: 98vw; }
-
-      .digits{
-
-        top: 61.8%;
-
-        font-size: clamp(22px, 6.2vw, 52px);
-
-      }
-
-    }
+   *{box-sizing:border-box}
+   body{
+     margin:0;
+     min-height:100vh;
+     display:grid;
+     place-items:center;
+     font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+     background:
+       linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+       url("praga.jpg");
+     background-size:cover;
+     background-position:center;
+     background-attachment:fixed;
+   }
+   .wrap{
+     width:min(1200px, 96vw);
+     padding:16px 12px;
+     display:flex;
+     justify-content:center;
+     align-items:center;
+   }
+   .board{
+     position:relative;
+     width:min(1100px, 96vw);
+     aspect-ratio: 3 / 2;
+     max-height: 88vh;
+   }
+   .board img{
+     width:100%;
+     height:100%;
+     object-fit:contain;
+     display:block;
+     filter: drop-shadow(0 18px 50px rgba(0,0,0,.45));
+     border-radius: 10px;
+   }
+   .overlay{
+     position:absolute;
+     inset:0;
+     pointer-events:none;
+   }
+   /* ✅ El comptador “aeroport” (4 finestres) */
+   .digits{
+     position:absolute;
+     left: 6.4%;
+     right: 6.4%;
+     /* 🔧 Ajusta’l aquí si cal (molt poc) */
+     top: 58.9%;
+     height: 18.2%;
+     display:grid;
+     grid-template-columns: 1fr 1fr 1fr 1fr;
+     gap: 5.2%;
+     align-items:center;
+     justify-items:center;
+   }
+   /* Cada finestra */
+   .cell{
+     width:100%;
+     height:100%;
+     border-radius: 10px;
+     position:relative;
+     /* Fons tipus split-flap */
+     background: rgba(10,10,10,.78);
+     border: 1px solid rgba(255,255,255,.10);
+     box-shadow:
+       inset 0 10px 22px rgba(255,255,255,.05),
+       inset 0 -14px 24px rgba(0,0,0,.55),
+       0 10px 24px rgba(0,0,0,.35);
+     /* tapa qualsevol text del panell que hi hagi sota */
+     overflow:hidden;
+   }
+   /* línia central (bisagra) */
+   .cell::after{
+     content:"";
+     position:absolute;
+     left:0; right:0;
+     top:50%;
+     height:2px;
+     transform: translateY(-1px);
+     background: rgba(255,255,255,.08);
+     box-shadow: 0 1px 0 rgba(0,0,0,.55);
+   }
+   /* ombra superior i inferior per donar “profunditat” */
+   .cell::before{
+     content:"";
+     position:absolute;
+     inset:0;
+     background:
+       linear-gradient(to bottom,
+         rgba(255,255,255,.06) 0%,
+         rgba(255,255,255,.02) 38%,
+         rgba(0,0,0,.05) 50%,
+         rgba(0,0,0,.35) 100%);
+     opacity:.9;
+     pointer-events:none;
+   }
+   .value{
+     position:absolute;
+     inset:0;
+     display:grid;
+     place-items:center;
+     z-index:2;
+     font-weight: 900;
+     font-variant-numeric: tabular-nums;
+     font-size: clamp(30px, 5.2vw, 74px);
+     letter-spacing: .03em;
+     line-height:1;
+     color:#f3b13a;
+     text-shadow: 0 10px 18px rgba(0,0,0,.6);
+   }
+   /* “flip” suau quan canvia */
+   .flip .value{
+     animation: flip .22s ease-in-out;
+   }
+   @keyframes flip{
+     0%   { transform: translateY(0) scaleY(1); }
+     40%  { transform: translateY(-2px) scaleY(.92); filter: brightness(1.05); }
+     100% { transform: translateY(0) scaleY(1); }
+   }
+   /* Mobile */
+   @media (max-width: 520px){
+     .digits{
+       top: 59.5%;
+       height: 19%;
+       gap: 4.6%;
+     }
+     .value{
+       font-size: clamp(26px, 7vw, 58px);
+     }
+   }
 </style>
 </head>
 <body>
 <div class="wrap">
 <div class="board">
-<!-- ✅ panell aeroport -->
 <img src="panel.png" alt="Panell aeroport - Praga" />
-<!-- ✅ números reals a sobre -->
 <div class="overlay">
 <div class="digits">
-<div id="dd">--</div>
-<div id="hh">--</div>
-<div id="mm">--</div>
-<div id="ss">--</div>
+<div class="cell" id="cell-dd"><div class="value" id="dd">--</div></div>
+<div class="cell" id="cell-hh"><div class="value" id="hh">--</div></div>
+<div class="cell" id="cell-mm"><div class="value" id="mm">--</div></div>
+<div class="cell" id="cell-ss"><div class="value" id="ss">--</div></div>
 </div>
 </div>
 </div>
 </div>
 <script>
-
-    // ✅ Sortida: 21/05/2026 17:30 (hora Barcelona)
-
-    const TARGET = new Date("2026-05-21T17:30:00+02:00");
-
-    const pad2 = (n) => String(n).padStart(2, "0");
-
-    const el = (id) => document.getElementById(id);
-
-    function tick(){
-
-      const now = new Date();
-
-      const diff = TARGET - now;
-
-      if (isNaN(TARGET.getTime()) || diff <= 0){
-
-        el("dd").textContent = "00";
-
-        el("hh").textContent = "00";
-
-        el("mm").textContent = "00";
-
-        el("ss").textContent = "00";
-
-        return;
-
-      }
-
-      const total = Math.floor(diff / 1000);
-
-      const days  = Math.floor(total / 86400);
-
-      const hours = Math.floor((total % 86400) / 3600);
-
-      const mins  = Math.floor((total % 3600) / 60);
-
-      const secs  = total % 60;
-
-      el("dd").textContent = pad2(days);
-
-      el("hh").textContent = pad2(hours);
-
-      el("mm").textContent = pad2(mins);
-
-      el("ss").textContent = pad2(secs);
-
-    }
-
-    tick();
-
-    setInterval(tick, 1000);
+   // ✅ Sortida: 21/05/2026 17:30 (hora Barcelona)
+   const TARGET = new Date("2026-05-21T17:30:00+02:00");
+   const pad2 = (n) => String(n).padStart(2, "0");
+   function setCell(cellId, valueId, nextText){
+     const cell = document.getElementById(cellId);
+     const el = document.getElementById(valueId);
+     if (el.textContent !== nextText){
+       el.textContent = nextText;
+       cell.classList.remove("flip");
+       // forçar reflow per reiniciar animació
+       void cell.offsetWidth;
+       cell.classList.add("flip");
+       setTimeout(() => cell.classList.remove("flip"), 260);
+     }
+   }
+   function tick(){
+     const now = new Date();
+     const diff = TARGET - now;
+     if (isNaN(TARGET.getTime()) || diff <= 0){
+       setCell("cell-dd","dd","00");
+       setCell("cell-hh","hh","00");
+       setCell("cell-mm","mm","00");
+       setCell("cell-ss","ss","00");
+       return;
+     }
+     const total = Math.floor(diff / 1000);
+     const days  = Math.floor(total / 86400);
+     const hours = Math.floor((total % 86400) / 3600);
+     const mins  = Math.floor((total % 3600) / 60);
+     const secs  = total % 60;
+     setCell("cell-dd","dd", pad2(days));
+     setCell("cell-hh","hh", pad2(hours));
+     setCell("cell-mm","mm", pad2(mins));
+     setCell("cell-ss","ss", pad2(secs));
+   }
+   tick();
+   setInterval(tick, 1000);
 </script>
 </body>
 </html>
- 
