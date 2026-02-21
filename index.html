@@ -1,91 +1,273 @@
- <!doctype html>
+<!doctype html>
 <html lang="ca">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PRAGA</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Compte enrere - Praga</title>
 <style>
-*{box-sizing:border-box}
-body{
-margin:0;
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-font-family:Arial, sans-serif;
-color:white;
-text-align:center;
-background:
-linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
-url("praga.jpg");
-background-size:cover;
-background-position:center;
-}
-h1{
-font-size:clamp(60px,10vw,150px);
-letter-spacing:.15em;
-margin:0;
-}
-.date{
-margin-top:20px;
-font-size:clamp(18px,3vw,28px);
-font-weight:bold;
-}
-.timer{
-margin-top:40px;
-font-size:clamp(40px,8vw,100px);
-font-weight:900;
-letter-spacing:.05em;
-}
-.label{
-margin-top:10px;
-font-size:14px;
-letter-spacing:.2em;
-text-transform:uppercase;
-}
-.note{
-margin-top:25px;
-font-size:16px;
-font-weight:600;
-}
+
+    *{box-sizing:border-box}
+
+    body{
+
+      margin:0;
+
+      min-height:100vh;
+
+      display:grid;
+
+      place-items:center;
+
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      /* Fons */
+
+      background:
+
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+
+        url("praga.jpg");
+
+      background-size:cover;
+
+      background-position:center;
+
+      background-attachment:fixed;
+
+    }
+
+    .wrap{
+
+      width:min(1100px, 96vw);
+
+      padding:18px 14px;
+
+      display:flex;
+
+      justify-content:center;
+
+      align-items:center;
+
+    }
+
+    /* Contenidor del panell */
+
+    .board{
+
+      position:relative;
+
+      width:min(1100px, 96vw);
+
+      aspect-ratio: 3 / 2; /* ajustat a l’estil del panell */
+
+      max-height: 86vh;
+
+    }
+
+    /* La imatge del panell */
+
+    .board img{
+
+      width:100%;
+
+      height:100%;
+
+      object-fit:contain;
+
+      display:block;
+
+      filter: drop-shadow(0 18px 50px rgba(0,0,0,.45));
+
+      border-radius: 10px;
+
+    }
+
+    /* Capa invisible per posicionar números */
+
+    .overlay{
+
+      position:absolute;
+
+      inset:0;
+
+      pointer-events:none;
+
+    }
+
+    /* 🔥 NÚMEROS del comptador (estil aeroport) */
+
+    .digits{
+
+      position:absolute;
+
+      left: 11%;
+
+      right: 11%;
+
+      top: 67%;
+
+      height: 18%;
+
+      display:grid;
+
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+
+      gap: 2%;
+
+      align-items:center;
+
+      justify-items:center;
+
+      font-weight: 900;
+
+      font-variant-numeric: tabular-nums;
+
+      font-size: clamp(38px, 6.5vw, 92px);
+
+      letter-spacing: .04em;
+
+      color: #f3b13a; /* groc aeroport */
+
+      text-shadow: 0 10px 24px rgba(0,0,0,.5);
+
+    }
+
+    /* Textos del DIA i HORA del panell (si vols que siguin dinàmics) */
+
+    .meta{
+
+      position:absolute;
+
+      left: 12%;
+
+      right: 12%;
+
+      top: 48%;
+
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      font-weight: 800;
+
+      font-size: clamp(16px, 2.3vw, 30px);
+
+      color:#f3b13a;
+
+      text-shadow: 0 8px 20px rgba(0,0,0,.45);
+
+    }
+
+    /* a mòbil una mica més avall */
+
+    @media (max-width: 520px){
+
+      .digits{ top: 70%; }
+
+      .meta{ top: 51%; }
+
+    }
 </style>
 </head>
 <body>
-<div>
-<h1>PRAGA</h1>
-<div class="date" id="date"></div>
-<div class="timer" id="countdown"></div>
-<div class="note" id="note"></div>
+<div class="wrap">
+<div class="board">
+<!-- ✅ Posa aquí el panell aeroport com a imatge -->
+<img src="panel.png" alt="Panell aeroport - Praga" />
+<div class="overlay">
+<!-- (Opcional) si vols que la data/hora del panell es mogui també -->
+<div class="meta">
+<div id="dayTxt">21 MAIG 2026</div>
+<div id="timeTxt">17:30</div>
+</div>
+<!-- ✅ Comptador real (DD : HH : MM : SS) -->
+<div class="digits">
+<div id="dd">--</div>
+<div id="hh">--</div>
+<div id="mm">--</div>
+<div id="ss">--</div>
+</div>
+</div>
+</div>
 </div>
 <script>
-const TARGET = new Date("2026-05-21T17:30:00+02:00");
-function pad(n){return n.toString().padStart(2,"0");}
-function update(){
-const now = new Date();
-const diff = TARGET - now;
-if(diff <= 0){
-document.getElementById("countdown").innerHTML = "00:00:00:00";
-document.getElementById("note").innerHTML = "🎉 Ja hi som!";
-return;
-}
-const total = Math.floor(diff/1000);
-const days = Math.floor(total/86400);
-const hours = Math.floor((total%86400)/3600);
-const minutes = Math.floor((total%3600)/60);
-const seconds = total%60;
-document.getElementById("countdown").innerHTML =
-pad(days)+":"+pad(hours)+":"+pad(minutes)+":"+pad(seconds);
-document.getElementById("note").innerHTML =
-"Falten "+days+" dies ✈️";
-}
-function formatDate(){
-const options = { weekday:"long", day:"2-digit", month:"long", year:"numeric", hour:"2-digit", minute:"2-digit"};
-document.getElementById("date").innerHTML =
-new Date("2026-05-21T17:30:00+02:00").toLocaleString("ca-ES", options);
-}
-formatDate();
-update();
-setInterval(update,1000);
+
+    // ✅ Data/hora real de sortida (Barcelona)
+
+    const TARGET_ISO = "2026-05-21T17:30:00+02:00";
+
+    const TARGET = new Date(TARGET_ISO);
+
+    const pad2 = (n) => String(n).padStart(2, "0");
+
+    const el = (id) => document.getElementById(id);
+
+    // Textos del panell (opcionales)
+
+    el("dayTxt").textContent = "21 MAIG 2026";
+
+    el("timeTxt").textContent = "17:30";
+
+    function tick(){
+
+      const now = new Date();
+
+      let diff = TARGET - now;
+
+      if (isNaN(TARGET.getTime())){
+
+        el("dd").textContent = "00";
+
+        el("hh").textContent = "00";
+
+        el("mm").textContent = "00";
+
+        el("ss").textContent = "00";
+
+        return;
+
+      }
+
+      if (diff <= 0){
+
+        el("dd").textContent = "00";
+
+        el("hh").textContent = "00";
+
+        el("mm").textContent = "00";
+
+        el("ss").textContent = "00";
+
+        return;
+
+      }
+
+      const total = Math.floor(diff / 1000);
+
+      const days = Math.floor(total / 86400);
+
+      const hours = Math.floor((total % 86400) / 3600);
+
+      const mins = Math.floor((total % 3600) / 60);
+
+      const secs = total % 60;
+
+      el("dd").textContent = pad2(days);
+
+      el("hh").textContent = pad2(hours);
+
+      el("mm").textContent = pad2(mins);
+
+      el("ss").textContent = pad2(secs);
+
+    }
+
+    tick();
+
+    setInterval(tick, 1000);
 </script>
 </body>
 </html>
+ 
