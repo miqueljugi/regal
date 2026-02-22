@@ -4,295 +4,194 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Proper destí: Praga</title>
+
 <style>
-
-    :root{
-
-      --amber:#f3b13a;
-
-      --panel: rgba(0,0,0,.55);
-
-      --stroke: rgba(255,255,255,.12);
-
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-
-    }
-
-    *{ box-sizing:border-box; }
-
-    body{
-
-      margin:0;
-
-      min-height:100vh;
-
-      display:grid;
-
-      place-items:center;
-
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-
-      color:#fff;
-
-      background:
-
-        linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.58)),
-
-        url("praga.jpg");
-
-      background-size:cover;
-
-      background-position:center;
-
-      background-attachment:fixed;
-
-    }
-
-    .card{
-
-      width:min(980px, 94vw);
-
-      padding:22px 18px 18px;
-
-      border-radius:22px;
-
-      background: var(--panel);
-
-      border:1px solid var(--stroke);
-
-      box-shadow: var(--shadow);
-
-      backdrop-filter: blur(7px);
-
-    }
-
-    .top{
-
-      display:flex;
-
-      justify-content:space-between;
-
-      gap:14px;
-
-      flex-wrap:wrap;
-
-      align-items:flex-end;
-
-      margin-bottom:14px;
-
-    }
-
-    .dest{
-
-      display:grid;
-
-      gap:6px;
-
-    }
-
-    .label{
-
-      font-size:12px;
-
-      letter-spacing:.18em;
-
-      text-transform:uppercase;
-
-      opacity:.9;
-
-    }
-
-    .bigcity{
-
-      font-weight:900;
-
-      letter-spacing:.14em;
-
-      text-transform:uppercase;
-
-      font-size: clamp(34px, 6vw, 66px);
-
-      line-height:1;
-
-      margin:0;
-
-    }
-
-    .meta{
-
-      display:grid;
-
-      justify-items:end;
-
-      gap:6px;
-
-      text-align:right;
-
-      min-width: 220px;
-
-    }
-
-    .meta .time{
-
-      font-weight:900;
-
-      color: var(--amber);
-
-      font-variant-numeric: tabular-nums;
-
-      font-size: clamp(26px, 4.4vw, 44px);
-
-      line-height:1;
-
-    }
-
-    .meta .date{
-
-      font-weight:700;
-
-      font-size: clamp(14px, 2.4vw, 18px);
-
-      opacity:.95;
-
-    }
-
-    .divider{
-
-      height:1px;
-
-      background: rgba(255,255,255,.14);
-
-      margin: 10px 0 16px;
-
-    }
-
-    /* ✅ Comptador estil aeroport */
-
-    .grid{
-
-      display:grid;
-
-      grid-template-columns: repeat(4, 1fr);
-
-      gap:12px;
-
-    }
-
-    .unit{
-
-      border-radius:16px;
-
-      background: rgba(0,0,0,.45);
-
-      border:1px solid rgba(255,255,255,.12);
-
-      box-shadow: inset 0 10px 20px rgba(255,255,255,.04),
-
-                  inset 0 -16px 24px rgba(0,0,0,.55);
-
-      overflow:hidden;
-
-      position:relative;
-
-      padding:14px 12px 10px;
-
-      min-height: 118px;
-
-    }
-
-    /* línia central (split) */
-
-    .unit::after{
-
-      content:"";
-
-      position:absolute;
-
-      left:0; right:0;
-
-      top:54%;
-
-      height:2px;
-
-      background: rgba(255,255,255,.08);
-
-      box-shadow: 0 1px 0 rgba(0,0,0,.55);
-
-    }
-
-    .num{
-
-      display:block;
-
-      text-align:center;
-
-      font-weight:900;
-
-      color: var(--amber);
-
-      font-variant-numeric: tabular-nums;
-
-      letter-spacing:.06em;
-
-      font-size: clamp(34px, 6.4vw, 72px);
-
-      line-height:1.05;
-
-      text-shadow: 0 10px 18px rgba(0,0,0,.6);
-
-      transform: translateY(2px);
-
-    }
-
-    .lab{
-
-      margin-top:10px;
-
-      text-align:center;
-
-      font-size:12px;
-
-      letter-spacing:.2em;
-
-      text-transform:uppercase;
-
-      opacity:.9;
-
-    }
-
-    /* animació flip suau */
-
-    .flip .num{
-
-      animation: flip .22s ease-in-out;
-
-    }
-
-    @keyframes flip{
-
-      0% { transform: translateY(2px) scaleY(1); }
-
-      40%{ transform: translateY(-1px) scaleY(.92); filter: brightness(1.05); }
-
-      100%{ transform: translateY(2px) scaleY(1); }
-
-    }
-
-    @media (max-width:520px){
-
-      .grid{ gap:10px; }
-
-      .unit{ min-height: 104px; }
-
-      .meta{ justify-items:start; text-align:left; }
-
-      .top{ align-items:flex-start; }
-
-    }
+:root{
+  --amber:#f3b13a;
+  --panel: rgba(0,0,0,.55);
+  --stroke: rgba(255,255,255,.12);
+  --shadow: 0 18px 60px rgba(0,0,0,.45);
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:#fff;
+  background:
+    linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.58)),
+    url("praga.jpg");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+/* 🔥 TÍTOL GRAN SUPERIOR */
+.aniversari{
+  position:absolute;
+  top:30px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size: clamp(36px, 6vw, 70px);
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color: var(--amber);
+  text-align:center;
+  text-shadow: 0 10px 30px rgba(0,0,0,.65);
+  z-index:10;
+}
+
+/* Targeta */
+.card{
+  width:min(980px, 94vw);
+  padding:22px 18px 18px;
+  border-radius:22px;
+  background: var(--panel);
+  border:1px solid var(--stroke);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(7px);
+  margin-top:120px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  margin-bottom:14px;
+}
+
+.dest{
+  display:grid;
+  gap:6px;
+}
+
+.label{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  opacity:.9;
+}
+
+.bigcity{
+  font-weight:900;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-size: clamp(34px, 6vw, 66px);
+  line-height:1;
+  margin:0;
+}
+
+.meta{
+  display:grid;
+  justify-items:end;
+  gap:6px;
+  text-align:right;
+  min-width:220px;
+}
+
+.meta .time{
+  font-weight:900;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(26px, 4.4vw, 44px);
+  line-height:1;
+}
+
+.meta .date{
+  font-weight:700;
+  font-size: clamp(14px, 2.4vw, 18px);
+  opacity:.95;
+}
+
+.divider{
+  height:1px;
+  background: rgba(255,255,255,.14);
+  margin:10px 0 16px;
+}
+
+/* Comptador estil aeroport */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:12px;
+}
+
+.unit{
+  border-radius:16px;
+  background: rgba(0,0,0,.45);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow: inset 0 10px 20px rgba(255,255,255,.04),
+              inset 0 -16px 24px rgba(0,0,0,.55);
+  overflow:hidden;
+  position:relative;
+  padding:14px 12px 10px;
+  min-height:118px;
+}
+
+.unit::after{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  top:54%;
+  height:2px;
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 1px 0 rgba(0,0,0,.55);
+}
+
+.num{
+  display:block;
+  text-align:center;
+  font-weight:900;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+  letter-spacing:.06em;
+  font-size: clamp(34px, 6.4vw, 72px);
+  line-height:1.05;
+  text-shadow: 0 10px 18px rgba(0,0,0,.6);
+  transform: translateY(2px);
+}
+
+.lab{
+  margin-top:10px;
+  text-align:center;
+  font-size:12px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  opacity:.9;
+}
+
+.flip .num{
+  animation: flip .22s ease-in-out;
+}
+
+@keyframes flip{
+  0% { transform: translateY(2px) scaleY(1); }
+  40%{ transform: translateY(-1px) scaleY(.92); filter: brightness(1.05); }
+  100%{ transform: translateY(2px) scaleY(1); }
+}
+
+@media (max-width:520px){
+  .grid{ gap:10px; }
+  .unit{ min-height:104px; }
+  .meta{ justify-items:start; text-align:left; }
+  .top{ align-items:flex-start; }
+}
 </style>
 </head>
+
 <body>
+
+<h1 class="aniversari">Feliç 40 aniversari ❤️</h1>
+
 <main class="card">
+
 <section class="top">
 <div class="dest">
 <div class="label">Destinació</div>
@@ -304,110 +203,70 @@
 <div class="date" id="dateTxt">21 maig 2026</div>
 </div>
 </section>
+
 <div class="divider"></div>
+
 <section class="grid" aria-label="Compte enrere">
 <div class="unit" id="uD"><span class="num" id="dd">--</span><div class="lab">Dies</div></div>
 <div class="unit" id="uH"><span class="num" id="hh">--</span><div class="lab">Hores</div></div>
 <div class="unit" id="uM"><span class="num" id="mm">--</span><div class="lab">Minuts</div></div>
 <div class="unit" id="uS"><span class="num" id="ss">--</span><div class="lab">Segons</div></div>
 </section>
+
 </main>
+
 <script>
+const TARGET_ISO = "2026-05-21T17:30:00+02:00";
+const TARGET = new Date(TARGET_ISO);
 
-    // ✅ Objectiu: 21/05/2026 a les 17:30 (hora Barcelona)
+const pad2 = (n) => String(n).padStart(2, "0");
+const $ = (id) => document.getElementById(id);
 
-    const TARGET_ISO = "2026-05-21T17:30:00+02:00";
+function flipIfChanged(unitId, valueId, next){
+  const unit = $(unitId);
+  const el = $(valueId);
+  if (el.textContent !== next){
+    el.textContent = next;
+    unit.classList.remove("flip");
+    void unit.offsetWidth;
+    unit.classList.add("flip");
+    setTimeout(()=>unit.classList.remove("flip"), 260);
+  }
+}
 
-    const TARGET = new Date(TARGET_ISO);
+try{
+  const optDate = { weekday:"long", day:"2-digit", month:"long", year:"numeric" };
+  $("dateTxt").textContent = TARGET.toLocaleDateString("ca-ES", optDate);
+  $("timeTxt").textContent = TARGET.toLocaleTimeString("ca-ES", { hour:"2-digit", minute:"2-digit" });
+}catch(e){}
 
-    const pad2 = (n) => String(n).padStart(2, "0");
+function tick(){
+  const now = new Date();
+  let diff = TARGET - now;
 
-    const $ = (id) => document.getElementById(id);
+  if (diff <= 0){
+    flipIfChanged("uD","dd","00");
+    flipIfChanged("uH","hh","00");
+    flipIfChanged("uM","mm","00");
+    flipIfChanged("uS","ss","00");
+    return;
+  }
 
-    function flipIfChanged(unitId, valueId, next){
+  const total = Math.floor(diff/1000);
+  const days = Math.floor(total/86400);
+  const hours = Math.floor((total%86400)/3600);
+  const mins = Math.floor((total%3600)/60);
+  const secs = total%60;
 
-      const unit = $(unitId);
+  flipIfChanged("uD","dd", pad2(days));
+  flipIfChanged("uH","hh", pad2(hours));
+  flipIfChanged("uM","mm", pad2(mins));
+  flipIfChanged("uS","ss", pad2(secs));
+}
 
-      const el = $(valueId);
-
-      if (el.textContent !== next){
-
-        el.textContent = next;
-
-        unit.classList.remove("flip");
-
-        void unit.offsetWidth;
-
-        unit.classList.add("flip");
-
-        setTimeout(()=>unit.classList.remove("flip"), 260);
-
-      }
-
-    }
-
-    // textos de data/hora “bonics”
-
-    try{
-
-      const optDate = { weekday:"long", day:"2-digit", month:"long", year:"numeric" };
-
-      $("dateTxt").textContent = TARGET.toLocaleDateString("ca-ES", optDate);
-
-      $("timeTxt").textContent = TARGET.toLocaleTimeString("ca-ES", { hour:"2-digit", minute:"2-digit" });
-
-    }catch(e){}
-
-    function tick(){
-
-      const now = new Date();
-
-      let diff = TARGET - now;
-
-      if (isNaN(TARGET.getTime())){
-
-        return;
-
-      }
-
-      if (diff <= 0){
-
-        flipIfChanged("uD","dd","00");
-
-        flipIfChanged("uH","hh","00");
-
-        flipIfChanged("uM","mm","00");
-
-        flipIfChanged("uS","ss","00");
-
-        return;
-
-      }
-
-      const total = Math.floor(diff/1000);
-
-      const days = Math.floor(total/86400);
-
-      const hours = Math.floor((total%86400)/3600);
-
-      const mins = Math.floor((total%3600)/60);
-
-      const secs = total%60;
-
-      flipIfChanged("uD","dd", pad2(days));
-
-      flipIfChanged("uH","hh", pad2(hours));
-
-      flipIfChanged("uM","mm", pad2(mins));
-
-      flipIfChanged("uS","ss", pad2(secs));
-
-    }
-
-    tick();
-
-    setInterval(tick, 1000);
+tick();
+setInterval(tick, 1000);
 </script>
+
 </body>
 </html>
- 
